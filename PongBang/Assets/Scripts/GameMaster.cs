@@ -57,6 +57,10 @@ public class GameMaster : MonoBehaviour
     {
         gameOver = true;
 
+        if (winningPlayer == 1) winText.color = Color.magenta;
+        else if (winningPlayer == 2) winText.color = Color.cyan;
+        else Debug.Log("Invalid input on method!");
+
         winText.text = "Player " + winningPlayer.ToString() + " wins!";
     }
 }

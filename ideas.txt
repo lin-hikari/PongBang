@@ -1,0 +1,9 @@
+>adicionar efeitos sonoros pra cada jogador ao acertar a bola
+>adicionar efeito sonoro de bola batendo na parede
+>efeito sonoro de gol pra ambos jogadores
+>efeito sonoro de vitória
+>música (ver abaixo)
+>Fazer a música escalar dependendo do total de pontos de ambos jogadores
+>Adicionar efeito de "tela ligando" no contador de pontos ao incrementar um ponto
+>Fazer texto de vitória de jogador girar loucamente
+>Colocar background que se "mexe" de acordo com direção da bola

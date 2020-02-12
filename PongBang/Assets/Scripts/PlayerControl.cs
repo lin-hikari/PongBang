@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator anim;
 
     Vector2 up = Vector2.up;
     Vector2 down = Vector2.down;
@@ -18,11 +19,12 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         up.y *= moveStrength;
         down.y *= moveStrength;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetButtonDown(upButton))
@@ -37,6 +39,14 @@ public class PlayerControl : MonoBehaviour
         {
             rb.Sleep();
             rb.WakeUp();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ball")
+        {
+            anim.SetTrigger("Hit");
         }
     }
 }
