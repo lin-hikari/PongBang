@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
     public Text winText;
 
-    public int winCondition = 3;
+    public Text p1Help, p2Help;
+
+    public Text restartText;
+
+    public int winCondition = 5;
 
     public Object ball;
 
@@ -23,6 +28,17 @@ public class GameMaster : MonoBehaviour
         WaitAndSpawnBall(initBallSpawn);
     }
 
+    void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            if(gameOver)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+    }
+
     IEnumerator TellWinCondition()
     {
         for(int i = 1; i <= 4; i++)
@@ -32,6 +48,9 @@ public class GameMaster : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             winText.text = "";                        
         }
+
+        p1Help.text = "";
+        p2Help.text = "";
     }
 
     public void WaitAndSpawnBall()
@@ -62,5 +81,6 @@ public class GameMaster : MonoBehaviour
         else Debug.Log("Invalid input on method!");
 
         winText.text = "Player " + winningPlayer.ToString() + " wins!";
+        restartText.text = "Press Enter to play again!";
     }
 }

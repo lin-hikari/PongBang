@@ -7,8 +7,9 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sprite;
     TrailRenderer trail;
+    AudioSource sound;
 
-    Vector2 direction = Vector2.zero;
+    Vector2 movement = Vector2.zero;
 
     public float speed = 7f;
     public float speedIncrease = 0.005f;
@@ -21,8 +22,9 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
+        sound = GetComponent<AudioSource>();
 
-        direction = RandomInitDirection();
+        movement = RandomInitDirection();
 
         gm = GameObject.Find("Game Master").GetComponent<GameMaster>();
         score = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
@@ -30,20 +32,20 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = direction;
+        rb.velocity = movement;
     }
 
     void FixedUpdate()
     {
         speed += speedIncrease;
-        direction = direction.normalized * speed;        
+        movement = movement.normalized * speed;        
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            direction.x *= -1f;
+            movement.x *= -1f;
 
             if(other.transform.position.x > 0)
             {
@@ -57,10 +59,14 @@ public class Ball : MonoBehaviour
                 trail.startColor = Color.magenta;
                 trail.endColor = Color.clear;
             }
+
+            sound.Play();
         }
         else if (other.gameObject.tag == "Wall")
         {
-            direction.y *= -1f;
+            movement.y *= -1f;
+
+            sound.Play();
         }
     }
 
